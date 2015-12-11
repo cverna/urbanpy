@@ -5,5 +5,5 @@ A command line urban dictionary
 ~./urbanpy.py
 Give radom definitions
 
-~./urbanpy.py <word>
+~./urbanpy.py word
 Give word definitions
