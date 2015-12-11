@@ -3,26 +3,23 @@
 import sys
 import urllib2
 import json
-import argparse
 
-def getTerm (term):
-  
+def get_term(term):
   url = 'http://api.urbandictionary.com/v0/define?term='+term
   return url
 
-def getRandom ():
+def get_random():
   url = 'http://api.urbandictionary.com/v0/random'
   return url
 
 
-def main ():
-  
+def main():
   args = sys.argv[1:]
   
   if not args:
-    url = getRandom()
-  else :
-    url = getTerm(args[0])
+    url = get_random()
+  else:
+    url = get_term(args[0])
   
   response = urllib2.urlopen(url).read()
   data = json.loads(response)
