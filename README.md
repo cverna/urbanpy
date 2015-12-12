@@ -2,7 +2,7 @@
 A command line urban dictionary
 
 ##Usage Example
-~./urbanpy.py
+~./urbanpy.py:
 Return random definitions
 
 ~./urbanpy.py lgtm
