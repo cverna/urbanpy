@@ -15,15 +15,19 @@ def get_random():
 
 def main():
   args = sys.argv[1:]
-  
+
   if not args:
     url = get_random()
   else:
     url = get_term(args[0])
-  
+
   response = urllib2.urlopen(url).read()
   data = json.loads(response)
-  for item in range(len(data['list'])):
+  nb_answers = 3
+  if len(data['list']) < 3 :
+      nb_answers = len(data['list'])
+
+  for item in range(nb_answers):
     print data['list'][item]['definition']
     print data['list'][item]['permalink']
     print '\n'
