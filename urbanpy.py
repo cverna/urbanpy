@@ -1,11 +1,7 @@
 #!/usr/bin/python
 from argparse import ArgumentParser
 import requests
-import json
 
-url = 'http://api.urbandictionary.com/v0/define?term='
-
-url = 'http://api.urbandictionary.com/v0/random'
 
 parser = ArgumentParser(description="Uses urbandictionary api to get a term definition")
 parser.add_argument('term', type=str, nargs='*', help='term to be define')
@@ -30,4 +26,3 @@ for item in range(nb_answer):
     print req['list'][item]['permalink']
     print '------------------------------------------------------------------------'
     print
-
