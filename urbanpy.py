@@ -1,36 +1,33 @@
 #!/usr/bin/python
-
-import sys
-import urllib2
+from argparse import ArgumentParser
+import requests
 import json
 
-def get_term(term):
-  url = 'http://api.urbandictionary.com/v0/define?term='+term
-  return url
+url = 'http://api.urbandictionary.com/v0/define?term='
 
-def get_random():
-  url = 'http://api.urbandictionary.com/v0/random'
-  return url
+url = 'http://api.urbandictionary.com/v0/random'
+
+parser = ArgumentParser(description="Uses urbandictionary api to get a term definition")
+parser.add_argument('term', type=str, nargs='*', help='term to be define')
+args = parser.parse_args()
+
+if args.term:
+    req = requests.get('http://api.urbandictionary.com/v0/define?term='+args.term[0])
+    req = req.json()
+    nb_answer = 3
+else:
+    req = requests.get('http://api.urbandictionary.com/v0/random')
+    req = req.json()
+    nb_answer = 1
 
 
-def main():
-  args = sys.argv[1:]
+if len(req['list']) < nb_answer:
+    nb_answer = len(req['list'])
 
-  if not args:
-    url = get_random()
-  else:
-    url = get_term(args[0])
+for item in range(nb_answer):
+    print
+    print req['list'][item]['definition']
+    print req['list'][item]['permalink']
+    print '------------------------------------------------------------------------'
+    print
 
-  response = urllib2.urlopen(url).read()
-  data = json.loads(response)
-  nb_answers = 3
-  if len(data['list']) < 3 :
-      nb_answers = len(data['list'])
-
-  for item in range(nb_answers):
-    print data['list'][item]['definition']
-    print data['list'][item]['permalink']
-    print '\n'
-
-if __name__ == '__main__':
-  main()
